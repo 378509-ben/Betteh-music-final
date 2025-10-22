@@ -1,0 +1,14 @@
+<%- include('partials/header', { title: 'Gallery', social: social, user: user, brand: brand }) %>
+
+<h2>Gallery</h2>
+<div class="gallery-grid">
+  <% if (!images || images.length===0) { %><p style="color:var(--muted)">No images yet.</p><% } %>
+  <% images.forEach(img => { %>
+    <div class="gallery-item">
+      <img src="/uploads/<%= img.filename %>" alt="">
+      <p style="color:var(--muted)"><%= img.caption %></p>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('partials/footer', { social: social, brand: brand }) %>

@@ -1,0 +1,21 @@
+<%- include('partials/header', { title: 'Home', social: social, user: user, brand: brand }) %>
+
+<section class="hero">
+  <h1><%= brand %></h1>
+  <p>Live band • Events • Music • Entertainment</p>
+</section>
+
+<section class="grid posts">
+  <% if (!posts || posts.length === 0) { %>
+    <p style="color:var(--muted)">No posts yet. Admins can add posts from the dashboard.</p>
+  <% } %>
+  <% posts.forEach(p => { %>
+    <article class="post-card">
+      <% if (p.image) { %><img src="/uploads/<%= p.image %>" alt=""><% } %>
+      <h3><%= p.title %></h3>
+      <p style="color:var(--muted)"><%= p.description ? (p.description.substring(0,150) + (p.description.length>150?'...':'')) : '' %></p>
+    </article>
+  <% }) %>
+</section>
+
+<%- include('partials/footer', { social: social, brand: brand }) %>

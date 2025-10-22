@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title><%= title || brand || 'Betteh Music' %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo"><img src="/assets/guitar.svg" alt="logo" style="width:28px;height:28px"></div>
+      <div class="brand-text"><%= brand || 'Betteh Music' %></div>
+    </div>
+    <nav class="top-nav">
+      <a href="/">Home</a>
+      <a href="/industry">Industry</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/staff">Staff</a>
+      <% if (user) { %><a href="/admin">Admin</a><a href="/logout">Logout</a><% } else { %><a href="/login">Login</a><% } %>
+    </nav>
+  </header>
+  <main class="container">

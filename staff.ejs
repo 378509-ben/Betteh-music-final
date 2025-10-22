@@ -1,0 +1,16 @@
+<%- include('partials/header', { title: 'Staff', social: social, user: user, brand: brand }) %>
+
+<h2>Our Team</h2>
+<div class="staff-grid">
+  <% if (!staff || staff.length===0) { %><p style="color:var(--muted)">No staff added yet.</p><% } %>
+  <% staff.forEach(s => { %>
+    <div class="staff-card">
+      <% if (s.photo) { %><img src="/uploads/<%= s.photo %>" alt=""><% } %>
+      <h4><%= s.name %></h4>
+      <p class="title" style="color:var(--muted)"><%= s.title %></p>
+      <% if (s.bio) { %><p class="bio" style="color:var(--muted)"><%= s.bio %></p><% } %>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('partials/footer', { social: social, brand: brand }) %>

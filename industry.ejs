@@ -1,0 +1,17 @@
+<%- include('partials/header', { title: 'Industry', social: social, user: user, brand: brand }) %>
+
+<h2>Entertainment Industry Posts</h2>
+<% if (!posts || posts.length===0) { %>
+  <p style="color:var(--muted)">No posts available.</p>
+<% } else { %>
+  <% posts.slice().reverse().forEach(p => { %>
+    <div class="post">
+      <h3><%= p.title %></h3>
+      <% if (p.image) { %><img src="/uploads/<%= p.image %>" alt="" style="max-width:100%;height:auto;border-radius:8px;margin:8px 0"><% } %>
+      <p style="color:var(--muted)"><%= p.description %></p>
+      <small style="color:var(--muted)">Posted: <%= new Date(p.createdAt).toLocaleString() %></small>
+    </div>
+  <% }) %>
+<% } %>
+
+<%- include('partials/footer', { social: social, brand: brand }) %>

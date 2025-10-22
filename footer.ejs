@@ -1,0 +1,14 @@
+  </main>
+  <footer class="site-footer">
+    <div class="footer-row">
+      <div class="socials">
+        <% if (social && social.facebook) { %><a href="<%= social.facebook %>" target="_blank">Facebook</a><% } %>
+        <% if (social && social.instagram) { %><a href="<%= social.instagram %>" target="_blank">Instagram</a><% } %>
+        <% if (social && social.tiktok) { %><a href="<%= social.tiktok %>" target="_blank">TikTok</a><% } %>
+        <% if (social && social.youtube) { %><a href="<%= social.youtube %>" target="_blank">YouTube</a><% } %>
+      </div>
+      <div class="copyright">© <%= new Date().getFullYear() %> <%= brand || 'Betteh Music' %></div>
+    </div>
+  </footer>
+</body>
+</html>

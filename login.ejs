@@ -1,0 +1,15 @@
+<%- include('partials/header', { title: 'Login', brand: brand }) %>
+
+<div class="auth-box">
+  <h2>Admin Login</h2>
+  <% if (error) { %><div class="error" style="color:#ff7b7b"><%= error %></div><% } %>
+  <form method="POST" action="/login">
+    <label>Username</label>
+    <input name="username" required>
+    <label>Password</label>
+    <input name="password" type="password" required>
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<%- include('partials/footer', { social: {}, brand: brand }) %>

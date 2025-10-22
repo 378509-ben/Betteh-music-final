@@ -1,0 +1,119 @@
+<%- include('../partials/header', { title: 'Admin Dashboard', social: social, user: user, brand: brand }) %>
+
+<h2>Admin Dashboard</h2>
+<div class="admin-grid">
+  <section class="admin-col">
+    <h3>Gallery</h3>
+    <form action="/admin/gallery/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <input name="caption" placeholder="Caption (optional)">
+      <button type="submit">Upload</button>
+    </form>
+    <div class="list">
+      <% (db.gallery||[]).forEach(g => { %>
+        <div class="list-item">
+          <div style="display:flex;align-items:center">
+            <img src="/uploads/<%= g.filename %>" alt="">
+            <div style="margin-left:8px">
+              <form action="/admin/gallery/edit/<%= g.id %>" method="POST" style="display:flex;gap:8px;align-items:center">
+                <input name="caption" value="<%= g.caption %>" placeholder="Caption">
+                <button type="submit">Save</button>
+              </form>
+            </div>
+          </div>
+          <form method="POST" action="/admin/gallery/delete/<%= g.id %>" onsubmit="return confirm('Delete?')">
+            <button>Delete</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="admin-col">
+    <h3>Posts</h3>
+    <form action="/admin/posts/add" method="POST" enctype="multipart/form-data">
+      <input name="title" placeholder="Title" required>
+      <textarea name="description" placeholder="Description"></textarea>
+      <input type="file" name="image" accept="image/*">
+      <button type="submit">Add Post</button>
+    </form>
+    <div class="list">
+      <% (db.posts||[]).forEach(p => { %>
+        <div class="list-item">
+          <div style="flex:1">
+            <strong><%= p.title %></strong><br>
+            <small style="color:var(--muted)"><%= new Date(p.createdAt).toLocaleString() %></small>
+          </div>
+          <div class="admin-actions">
+            <details>
+              <summary>Edit</summary>
+              <form action="/admin/posts/edit/<%= p.id %>" method="POST" enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+                <input name="title" value="<%= p.title %>">
+                <textarea name="description"><%= p.description %></textarea>
+                <input type="file" name="image" accept="image/*">
+                <button type="submit">Save</button>
+              </form>
+            </details>
+            <form method="POST" action="/admin/posts/delete/<%= p.id %>" onsubmit="return confirm('Delete post?')">
+              <button>Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="admin-col">
+    <h3>Staff</h3>
+    <form action="/admin/staff/add" method="POST" enctype="multipart/form-data">
+      <input name="name" placeholder="Name" required>
+      <input name="title" placeholder="Title">
+      <textarea name="bio" placeholder="Bio"></textarea>
+      <input type="file" name="photo" accept="image/*">
+      <button type="submit">Add Staff</button>
+    </form>
+    <div class="list">
+      <% (db.staff||[]).forEach(s => { %>
+        <div class="list-item">
+          <div style="flex:1">
+            <strong><%= s.name %></strong> — <em style="color:var(--muted)"><%= s.title %></em>
+          </div>
+          <div class="admin-actions">
+            <details>
+              <summary>Edit</summary>
+              <form action="/admin/staff/edit/<%= s.id %>" method="POST" enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:6px;margin-top:6px">
+                <input name="name" value="<%= s.name %>">
+                <input name="title" value="<%= s.title %>">
+                <textarea name="bio"><%= s.bio %></textarea>
+                <input type="file" name="photo" accept="image/*">
+                <button type="submit">Save</button>
+              </form>
+            </details>
+            <form method="POST" action="/admin/staff/delete/<%= s.id %>" onsubmit="return confirm('Delete staff?')">
+              <button>Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <h3>Social Links</h3>
+    <form action="/admin/social" method="POST" style="display:flex;flex-direction:column;gap:8px">
+      <input name="facebook" placeholder="Facebook URL" value="<%= social.facebook || '' %>">
+      <input name="instagram" placeholder="Instagram URL" value="<%= social.instagram || '' %>">
+      <input name="tiktok" placeholder="TikTok URL" value="<%= social.tiktok || '' %>">
+      <input name="youtube" placeholder="YouTube URL" value="<%= social.youtube || '' %>">
+      <button type="submit">Save Links</button>
+    </form>
+
+    <h3 style="margin-top:12px">Manage Admins</h3>
+    <form action="/admin/admins/add" method="POST" style="display:flex;flex-direction:column;gap:8px">
+      <input name="username" placeholder="New admin username" required>
+      <input name="password" placeholder="New admin password" required>
+      <button type="submit">Add Admin</button>
+    </form>
+
+  </section>
+</div>
+
+<%- include('../partials/footer', { social: social, brand: brand }) %>
