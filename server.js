@@ -12,9 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // lowdb setup
-const file = path.join(__dirname, 'db.json');
-const adapter = new JSONFile(file);
-const db = new Low(adapter);
+import { low } from 'lowdb'
+import { JSONFilesync } from 'lowdb/node'
+  
+const file ='.db.json'
+const adapter = new JSONFilesync(file);
+const db = new Low(adapter, { posts: [], staff: []})
 
 // Initialize DB and create initial admin from .env if none exists
 async function initDB(){
