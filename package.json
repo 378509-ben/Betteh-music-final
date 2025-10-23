@@ -2,6 +2,7 @@
   "name": "betteh-music-final",
   "version": "1.2.0",
   "main": "server.js",
+  "type": "module"
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
